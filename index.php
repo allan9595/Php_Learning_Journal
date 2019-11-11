@@ -17,22 +17,17 @@
         <section>
             <div class="container">
                 <div class="entry-list">
-                    <article>
-                        <h2><a href="detail.php">The best day I’ve ever had</a></h2>
-                        <time datetime="2016-01-31">January 31, 2016</time>
-                    </article>
-                    <article>
-                        <h2><a href="detail_2.php">The absolute worst day I’ve ever had</a></h2>
-                        <time datetime="2016-01-31">January 31, 2016</time>
-                    </article>
-                    <article>
-                        <h2><a href="detail_3.php">That time at the mall</a></h2>
-                        <time datetime="2016-01-31">January 31, 2016</time>
-                    </article>
-                    <article>
-                        <h2><a href="detail_4.php">Dude, where’s my car?</a></h2>
-                        <time datetime="2016-01-31">January 31, 2016</time>
-                    </article>
+                    <?php
+                        include('inc/db_fetch.php');
+                        foreach(db_fetch() as $key => $result){
+                            echo $key + 1;
+                            //$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+                            echo "<article>";
+                            echo "<h2><a href='detail.php?id=" . ($key+1) . "'>$result[title]</a></h2>";
+                            echo "<time datetime=$result[date]>" . date_format(new DateTime($result['date']), 'M d, Y') . "</time>";
+                            echo "</article>";
+                        }
+                    ?>
                 </div>
             </div>
         </section>

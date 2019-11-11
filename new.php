@@ -18,7 +18,7 @@
             <div class="container">
                 <div class="new-entry">
                     <h2>New Entry</h2>
-                    <form>
+                    <form method="post" action="inc/db_add.php">
                         <label for="title"> Title</label>
                         <input id="title" type="text" name="title"><br>
                         <label for="date">Date</label>
