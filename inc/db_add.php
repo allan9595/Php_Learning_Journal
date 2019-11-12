@@ -25,5 +25,5 @@
     }
 
     db_add($title, $date, $time_spent, $learned, $resources);
-    header('Location: ../new.php');
+    header('Location: ../index.php');
 ?>

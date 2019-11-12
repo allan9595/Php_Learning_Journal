@@ -19,11 +19,18 @@
                 <div class="entry-list">
                     <?php
                         include('inc/db_fetch.php');
-                        foreach(db_fetch() as $key => $result){
-                            echo $key + 1;
+                        //var_dump(db_fetch());
+                        $result = db_fetch();
+                        function date_sort($a, $b){
+                            return  strtotime($b['date']) - strtotime($a['date']);
+                        }
+                        uasort($result, "date_sort");
+                        //var_dump($result);
+                        foreach($result as $key => $result){
+                            //echo $key + 1;
                             //$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
                             echo "<article>";
-                            echo "<h2><a href='detail.php?id=" . ($key+1) . "'>$result[title]</a></h2>";
+                            echo "<h2><a href='detail.php?id=$result[id]'>$result[title]</a></h2>";
                             echo "<time datetime=$result[date]>" . date_format(new DateTime($result['date']), 'M d, Y') . "</time>";
                             echo "</article>";
                         }
