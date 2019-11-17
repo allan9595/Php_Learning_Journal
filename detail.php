@@ -18,9 +18,11 @@
             <div class="container">
                 <div class="entry-list single">
                     <?php
+                        include('inc/db_fetch.php');
                         include('inc/db_fetch_detail.php');
-                        $result = db_fetch_detail();
-                        //var_dump($result);
+                        $result = db_fetch_detail_no_tags();
+                        $tags = db_fetch_tags();
+                        
                         echo 
                         "<article>"
                         .   "<h1>$result[title]</h1>"
@@ -45,6 +47,15 @@
                                 }
                             echo "</div>"
                         ."</article>";
+                        echo "<h3>All Tags:</h3>";
+                        if(empty($tags)){
+                            echo "<p>No Tags To Show..</p>";
+                        }
+                        foreach($tags as $tag){
+                            echo  "<ul>"
+                                 ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
+                             ."</ul>";
+                         }
                     ?>
                 </div>
             </div>

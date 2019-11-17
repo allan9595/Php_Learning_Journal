@@ -19,15 +19,16 @@
                 <div class="entry-list">
                     <?php
                         include('inc/db_fetch.php');
-                        $result = db_fetch();
+                        $filtered = filter_input(INPUT_GET, 'filter', FILTER_SANITIZE_STRING);
+                        $result = db_fetch_filtered($filtered);
                         $tags = db_fetch_tags();
-                        //order the item based on date
-                        
+                        //rendering the filtered the data, order them based on date
+
                         function date_sort($a, $b){
                             return  strtotime($b['date']) - strtotime($a['date']);
                         }
                         uasort($result, "date_sort");
-
+                        
                         foreach($tags as $tag){
                            echo  "<ul>"
                                 ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"

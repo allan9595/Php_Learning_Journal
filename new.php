@@ -24,13 +24,15 @@
                         <label for="date">Date</label>
                         <input id="date" type="date" name="date"><br>
                         <label for="time-spent"> Time Spent</label>
-                        <input id="time-spent" type="text" name="timeSpent"><br>
-                        <label for="what-i-learned">What I Learned</label>
-                        <textarea id="what-i-learned" rows="5" name="whatILearned"></textarea>
+                        <input id="time-spent" type="text" name="timeSpent" placeholder="20 hours"><br>
+                        <label for="tags">Tags</label>
+                        <input id="tags" type="text" name="tags" placeholder="programming,php,victory"><br>
+                        <label for="tags">Learned</label>
+                        <textarea id="what-i-learned" rows="5" name="whatILearned" placeholder="React.js"></textarea>
                         <label for="resources-to-remember">Resources to Remember</label>
-                        <textarea id="resources-to-remember" rows="5" name="ResourcesToRemember"></textarea>
+                        <textarea id="resources-to-remember" rows="5" name="ResourcesToRemember" placeholder="reactjs.org"></textarea>
                         <input type="submit" value="Publish Entry" class="button">
-                        <a href="#" class="button button-secondary">Cancel</a>
+                        <a href="index.php" class="button button-secondary">Cancel</a>
                     </form>
                 </div>
             </div>
