@@ -22,12 +22,22 @@
                         include('inc/db_fetch_detail.php');
                         $result = db_fetch_detail_no_tags();
                         $tags = db_fetch_tags();
-                        
                         echo 
                         "<article>"
                         .   "<h1>$result[title]</h1>"
-                            ."<time datetime=$result[date]>" . date_format(new DateTime($result['date']), 'M d, Y') . "</time>"
-                            ."<div class='entry'>"
+                            ."<time datetime=$result[date]>" . date_format(new DateTime($result['date']), 'M d, Y') . "</time>";
+                            echo "<p></p>";
+                            $entry_tags = db_fetch_tags_under_same_entry($result['id']);
+                                foreach($entry_tags as $key_tag => $tag){
+                                    if(!empty($tag['tag_name'])){
+                                        echo " ";
+                                        echo "
+                                                <span><a style='text-decoration:none;color:#678f89;' href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></span>
+                                        ";
+                                    }
+                            }
+                            echo "<p></p>";
+                            echo "<div class='entry'>"
                                 ."<h3>Time Spent: </h3>"
                                 ."<p>$result[time_spent]</p>"
                             ."</div>"
@@ -47,14 +57,17 @@
                                 }
                             echo "</div>"
                         ."</article>";
+
                         echo "<h3>All Tags:</h3>";
                         if(empty($tags)){
                             echo "<p>No Tags To Show..</p>";
                         }
                         foreach($tags as $tag){
-                            echo  "<ul>"
-                                 ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
-                             ."</ul>";
+                            if(!empty($tag['tag_name'])){
+                                echo  "<ul>"
+                                        ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
+                                    ."</ul>";
+                            }
                          }
                     ?>
                 </div>

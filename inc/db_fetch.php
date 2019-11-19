@@ -3,8 +3,8 @@
         try{
             //select the unique entry and tag from db
             include('db_connection.php');
-            $sql = "SELECT `id`, `title`, `date` FROM `entries`;
-                SELECT DISTINCT `tag_name` FROM `tags`;
+            $sql = "
+                SELECT id, title, date FROM entries
             ";
             $pdo = $db->prepare($sql);
             $pdo->execute();
@@ -14,6 +14,26 @@
             echo $e->getMessage();
         }
     };
+
+    function db_fetch_tags_under_same_entry($id){
+        try{
+            //select the unique entry and tag from db
+            include('db_connection.php');
+            $sql = "
+                SELECT tags.tag_name FROM entries
+                LEFT jOIN entries_tags ON entries.id = entry_id
+                LEFT JOIN tags on tags.id = tag_id
+                WHERE entry_id = ?;
+            ";
+            $pdo = $db->prepare($sql);
+            $pdo->bindValue(1, $id, PDO::PARAM_INT);
+            $pdo->execute();
+            $results = $pdo->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
 
     function db_fetch_tags(){
         try{

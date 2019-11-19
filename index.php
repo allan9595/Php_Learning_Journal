@@ -22,21 +22,35 @@
                         $result = db_fetch();
                         $tags = db_fetch_tags();
                         //order the item based on date
-                        
+
                         function date_sort($a, $b){
                             return  strtotime($b['date']) - strtotime($a['date']);
                         }
                         uasort($result, "date_sort");
 
                         foreach($tags as $tag){
-                           echo  "<ul>"
-                                ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
-                            ."</ul>";
+                            if(!empty($tag['tag_name'])){
+                                echo  "<ul>"
+                                            ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
+                                        ."</ul>";
+                            }
                         }
                         foreach($result as $key => $result){
                             echo "<article>";
                             echo "<h2><a href='detail.php?id=$result[id]'>$result[title]</a></h2>";
-                            echo "<time datetime=$result[date]>" . date_format(new DateTime($result['date']), 'M d, Y') . "</time>";
+                            echo "<time datetime=$result[date]>" . date_format(new DateTime($result['date']), 'M d, Y') . "</time><br>";
+                            $entry_tags = db_fetch_tags_under_same_entry($result['id']);
+                            foreach($entry_tags as $key_tag => $tag){
+                                if(!empty($tag['tag_name'])){
+                                    echo " ";
+                                    echo "
+                                        <span><a style='text-decoration:none;color:#678f89;' href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</span>
+                                    ";
+                                    
+                                }else{
+                                    echo "";
+                                }
+                            }
                             echo "</article>";
                         }
                     ?>

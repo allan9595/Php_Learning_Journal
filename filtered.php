@@ -30,9 +30,11 @@
                         uasort($result, "date_sort");
                         
                         foreach($tags as $tag){
-                           echo  "<ul>"
-                                ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
-                            ."</ul>";
+                            if(!empty($tag['tag_name'])){
+                                echo  "<ul>"
+                                        ."<li><a href='filtered.php?filter=$tag[tag_name]'>#$tag[tag_name]</a></li>"
+                                    ."</ul>";
+                            }
                         }
                         foreach($result as $key => $result){
                             echo "<article>";
