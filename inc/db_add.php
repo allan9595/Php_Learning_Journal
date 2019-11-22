@@ -9,7 +9,9 @@ function parseDate($date)
     if($year<1900 || $year > date('Y')){
         return "Year is not valid, must be a year later than 1990 and less than 2019";
     }else{
-        return checkdate($month, $day, $year);
+        if(checkdate($month, $day, $year)==1){
+            return "The date is set to $date"; //set this so make sure no null would returned
+        }
     }
 }
 echo $_POST["date"];

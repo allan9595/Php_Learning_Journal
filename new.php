@@ -46,7 +46,7 @@
 
                             if(isset($_SESSION['input']['time_spent'])){
                                 //set the time to keep it
-                                echo "<input id='time-spent' type='text' name='timeSpent' value='" . $_SESSION['input']['time_spent'] . "'><br>";
+                                echo "<input id='time-spent' type='text' name='timeSpent' placeholder='20 hours' value='" . $_SESSION['input']['time_spent'] . "'><br>";
                             }else{
                                 echo "<input id='time-spent' type='text' name='timeSpent' placeholder='20 hours'><br>";
                             }
